@@ -5,9 +5,10 @@ const int ledPin =  LED_BUILTIN;  // the number of the LED pin
 
 // constants won't change:
 const int inPin = 7;
+const int relayPin = 2;
 
 // Variables will change:
-int openSeconds = 3;  // duration to switch on
+int openSeconds = 1;  // duration to switch on
 long lastShockTime = 0;
 
 void setup() {
@@ -16,6 +17,7 @@ void setup() {
   // set the digital pin as output:
   pinMode(ledPin, OUTPUT);
   pinMode(inPin, INPUT);
+  pinMode(relayPin, OUTPUT);
 
 }
 
@@ -27,11 +29,13 @@ void loop() {
     //Turn on the led
     Serial.println("Open!!!");
     digitalWrite(ledPin, HIGH);
+    digitalWrite(relayPin, HIGH);
   }
 
-  if ((lastShockTime + 1000 * 3) < millis()) {
+  if ((lastShockTime + 1000 * openSeconds) < millis()) {
     //Turn off the led
     Serial.println("Close!!!");
     digitalWrite(ledPin, LOW);
+    digitalWrite(relayPin, LOW);
   }
 }
